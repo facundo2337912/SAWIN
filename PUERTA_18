@@ -1,0 +1,17 @@
+//Ejercito
+
+//Civilizaciones: Chinos - Ingleses - Bizantinos
+//unidades: Arqueros, piqueros, caballeria.
+
+let Ejercito = {
+  civilizaciones: ["chinos", "ingleses", "bizantinos"],
+  unidades: ["arqueros", "piqueros", "caballeria"],
+  puntos_Aportados: [5, 10, 20],
+};
+
+// inicializacion del ejercito
+//cantidad inicial de unidades -
+// Chinos/piqueros: 2 - Chinos/arqueros: 25 - Chinos/caballeria: 2
+// ingleses/piqueros: 10 - Ingleses/arqueros: 10 - Ingleses/caballeria: 10
+// Bizantinos/piqueros: 5 - Bizantinos/arqueros: 8 - Bizantinos/caballeria: 15
+
