@@ -6,4 +6,18 @@ OBJETIVO:
 Una página web diseñada para venta de productos (como primera prueba lo enfocaremos al rubro de frutas y verduras). No muy diferente a como funcionaria en comprar por pedidos ya, o cualquier otra app de delivery.
 Hay que tener en cuenta que el vendedor debe poder modificar los precios en el futuro(si es que sus costos de materia prima, aumentan). ¿Crees que debe haber dos paginas una para los clientes y otra para el vendedor? 
 
+17/10
+uso de IA (la cual me entrego el codigo Prueba2_SAWIN)
+SE le pidió lo siguiente a deepseek:
 
+Proyecto pagina web:
+OBJETIVO:
+
+Una página web diseñada para venta de productos (como primera prueba lo enfocaremos al rubro de frutas y verduras). No muy diferente a como funcionaria en comprar por pedidos ya, o cualquier otra app de delivery.
+Hay que tener en cuenta que el vendedor debe poder modificar los precios en el futuro(si es que sus costos de materia prima, aumentan). ¿Crees que debe haber dos paginas una para los clientes y otra para el vendedor? 
+
+Ya me diste una respuesta anteriormente, la cual incluia el siguiente codigo:
+
+prueba1_sawin
+
+Pero este no me sirve, porque sigue sin cumplir la condicion de que yo como usuario o como "admin"/vendedor, cualquiera de los 2 pueden acceder a la accion de modificar los precios. Yo busco que solo el "admin" pueda acceder a dicha funcion
