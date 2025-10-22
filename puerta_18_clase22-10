@@ -1,0 +1,114 @@
+
+// ===============================
+//  CHALLENGE FINAL: EXPENSE SPLITTER
+// ===============================
+
+// Crea una función llamada expenseSplitter() que reciba un array de objetos,
+// donde cada objeto representa a una persona y sus gastos en una juntada.
+// La función debe calcular cuánto gastó cada uno y dividir equitativamente
+// el total, devolviendo cuánto debe pagar o recibir cada persona.
+
+// Ejemplo:
+const expenses = [
+  { name: "Ana", spent: 120 },
+  { name: "Luis", spent: 80 },
+  { name: "Carla", spent: 100 },
+  { name: "Pedro", spent: 20 },
+];
+
+console.log("-----");
+console.log("CHALLENGE FINAL: EXPENSE SPLITTER ");
+
+let [gastado, cantidad] = expenseSplitter(expenses);
+
+function expenseSplitter(expenses) {
+  let totalGastado = expenses.reduce((acc, persona) => acc + persona.spent, 0);
+  console.log("Total gastado: ", totalGastado);
+
+  let cantidadPersonas = expenses.length;
+  let gastoxPersona = totalGastado / cantidadPersonas;
+  console.log("Cada uno debe pagar: ", gastoxPersona);
+  console.log("-----");
+  console.log("¿Quien pago demas o de menos?");
+
+  for (let number of expenses) {
+    for (let key in number) {
+      console.log(key, ":", number[key]);
+      if (number.spent - gastoxPersona > 0) {
+        console.log("Pago de mas:$", number.spent - gastoxPersona);
+        break;
+      } else if (number.spent - gastoxPersona < 0) {
+        console.log("Pago de menos:$", gastoxPersona - number.spent);
+        break;
+      } else {
+        console.log("Pago justo");
+        break;
+      }
+    }
+  }
+  return [gastoxPersona, cantidadPersonas];
+}
+console.log("gastado: ", gastado, "cantidad de personas: ", cantidad);
+billetes_count(100);
+
+function billetes_count(gasto) {
+  let billetes = [20, 50, 100, 200, 1000, 2000, 10000, 20000];
+  let cuento_billetes = [0, 0, 0, 0, 0, 0, 0, 0];
+  let diferencia;
+  let acumulado = 0;
+  let cont = 0;
+  do {
+    for (i = 0; i < billetes.length; i++) {
+      while((acumulado <= gasto) && (cuento_billetes[i]<=3)&&(billetes[i]<=gasto)){
+        console.log("1");
+        acumulado += billetes[i];
+        cuento_billetes[i] +=1;
+        if (acumulado == gasto){
+          acumulado = 0;
+        }
+      } 
+    }
+    if(i=(billetes.length-1)){
+      acumulado = gasto+1;
+    }
+  } while (acumulado <gasto);
+  console.log("sali");
+  for(i = 0; i < billetes.length; i++) {
+    console.log(cuento_billetes[i]);
+  }
+  let nueva_lista = cuento_billetes.filter(num => num!=0);
+  let miniMo = cuento_billetes.indexOf();
+  for (i=0;i<billetes.length;i++){
+    let acumulacion=i;
+    
+  }
+  cuento_billetes.sort((a, b) => a - b);
+  
+  let minimo_cantidad =nueva_lista[0];
+  let minimo = billetes.indexOf(minimo_cantidad);
+  console.log("cantidad de billetes a usar: ", cuento_billetes[0], "de la denominacion: ", billetes[minimo]);
+}
+// Resultado esperado:
+//Mejoras
+/*
+
+let ages = [30, 17, 25, 80];
+ages.sort((a, b) => a - b);
+console.log("Sorted ages:", ages); // [17, 25, 30, 80]
+
+
+
+
+Si se paga en debito/transferencia no hay problema. Pero si se paga en efectivo,
+uno no siempre tiene el monto exacto. 
+
+billetes = [20, 50, 100,200, 1000, 2000, 10000, 20000];
+
+Suponiendo que cada persona tiene al menos 3 billetes de cada denominacion,
+crear una funcion que calcule la cantidad minima de billetes para pagar el monto exacto
+(el monto que debe pagar cada persona)
+
+Si no es posible pagar el monto exacto, devolver la combinacion que mas se le acerque,
+pasandose lo minimo posible. No debe pagar de menos, sino de mas y todo lo que sobre al final(de todas las
+personas) se junta y se reparte entre todas las personas.
+*/
