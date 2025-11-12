@@ -1,0 +1,89 @@
+// 1️⃣ Importamos Express y fs para manejar archivos
+import express from "express";
+import fs from "fs/promises"; // Usamos la versión con promesas
+
+// 2️⃣ Creamos una aplicación de Express
+const app = express();
+
+// 3️⃣ Middleware para interpretar JSON automáticamente
+app.use(express.json());
+
+// 4️⃣ Middleware global de ejemplo
+app.use((req, res, next) => {
+  console.log(`📦 Middleware → ${req.method} ${req.url}`);
+  next();
+});
+
+// 5️⃣ Función para leer usuarios del archivo JSON
+const readUsersFromFile = async () => {
+  try {
+    const data = await fs.readFile("users.json", "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.log("Error leyendo archivo, usando array vacío");
+    return [];
+  }
+};
+
+// 6️⃣ Función para guardar usuarios en el archivo JSON
+const saveUsersToFile = async (users) => {
+  try {
+    await fs.writeFile("users.json", JSON.stringify(users, null, 2));
+    console.log("✅ Usuarios guardados en users.json");
+  } catch (error) {
+    console.log("❌ Error guardando en archivo:", error);
+  }
+};
+
+// 7️⃣ Ruta raíz "/"
+app.get("/", (req, res) => {
+  res.send("Welcome to Express.js!");
+});
+
+// 8️⃣ Ruta GET /users - Ahora lee del archivo
+app.get("/users", async (req, res) => {
+  try {
+    const users = await readUsersFromFile();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Error leyendo usuarios" });
+  }
+});
+
+// 9️⃣ Ruta POST /users - Ahora guarda en el archivo
+app.post("/users", async (req, res) => {
+  try {
+    const newUser = req.body;
+
+    // Validación básica
+    if (!newUser.name) {
+      return res.status(400).json({ error: "El campo 'name' es requerido" });
+    }
+
+    // Leer usuarios existentes
+    const users = await readUsersFromFile();
+
+    // Generar nuevo ID
+    const newId =
+      users.length > 0 ? Math.max(...users.map((u) => u.id)) + 1 : 1;
+    newUser.id = newId;
+
+    // Agregar nuevo usuario
+    users.push(newUser);
+
+    // Guardar en archivo
+    await saveUsersToFile(users);
+
+    console.log("Nuevo usuario creado:", newUser);
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.log("Error:", error);
+    res.status(500).json({ error: "Error creando usuario" });
+  }
+});
+
+// 🔟 Iniciamos el servidor
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Servidor Express corriendo en http://localhost:${PORT}`);
+});
